@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 RELEASE = os.path.normpath(os.path.join(ROOT, "..", "release"))
 
-SRC = os.path.join(ROOT, "dist", "万能视频播放器.exe")
+SRC = os.path.join(ROOT, "dist_a", "万能视频播放器.exe")
 DST_NAME = "万能视频播放器-单文件-v1.4.0.exe"
 
 

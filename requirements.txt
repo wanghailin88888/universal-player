@@ -1,0 +1,17 @@
+# 万能视频播放器依赖
+PySide6>=6.7
+python-vlc>=3.0.20123
+
+# ---------- AI 字幕（语音识别 + 离线翻译）----------
+# 声名：以下包用于「自动识别人声生成字幕 + 多语言翻译」功能，
+#       若不需要该功能可以不装，播放器本体的格式解码/播放不受影响。
+
+# Whisper 推理（CTranslate2 版，CPU 也能跑）
+faster-whisper>=1.1.0,<2
+# 解码容器/提取音轨。注意：必须 <19，
+# faster-whisper 1.2.x 调用的 av.open(metadata_errors=...) 在 av 19 里已移除
+av>=11,<19
+# 离线翻译引擎（opus-mt 量化版，无需 API key）
+argostranslate>=1.9
+# 繁体→简体转换（Whisper 中文输出常混繁体，识别结果统一转简体）
+zhconv>=1.4

@@ -1,0 +1,61 @@
+[000001edc10973a0] cache_read stream error: cannot pre fill buffer
+[000001edbbf19520] mjpeg demux error: cannot peek
+[000001edc10b82b0] avcodec decoder: Using D3D11VA (Intel(R) UHD Graphics, vendor 8086(Intel), device 9b41, revision 2) for hardware decoding
+[000001edc10b82b0] main decoder error: Timestamp conversion failed (delay 1000000, buffering 0, bound 9000000)
+[000001edc10b82b0] main decoder error: Could not convert timestamp 6753677333 for FFmpeg
+[h264 @ 000001edc1096780] get_buffer() failed
+[h264 @ 000001edc1096780] thread_get_buffer() failed
+[h264 @ 000001edc1096780] no frame!
+[000001edc10f0890] cache_read stream error: cannot pre fill buffer
+[000001edc10f0b90] cache_read stream error: cannot pre fill buffer
+[000001edcaf71000] mjpeg demux error: cannot peek
+[h264 @ 000001edcadfe140] co located POCs unavailable
+[h264 @ 000001edcadfc780] mmco: unref short failure
+[h264 @ 000001edc1096780] co located POCs unavailable
+[h264 @ 000001edc1095c80] mmco: unref short failure
+[h264 @ 000001edcadffec0] co located POCs unavailable
+[h264 @ 000001edc1095c80] co located POCs unavailable
+[h264 @ 000001edc1096780] co located POCs unavailable
+[h264 @ 000001edc1095c80] mmco: unref short failure
+[h264 @ 000001edc1095c80] mmco: unref short failure
+[h264 @ 000001edc1095c80] co located POCs unavailable
+[h264 @ 000001edc1095c80] mmco: unref short failure
+[h264 @ 000001edcadfe140] co located POCs unavailable
+[h264 @ 000001edcadfc780] mmco: unref short failure
+[h264 @ 000001edc1096780] co located POCs unavailable
+[h264 @ 000001edc1095c80] mmco: unref short failure
+[h264 @ 000001edcadffec0] co located POCs unavailable
+[h264 @ 000001edc10963c0] co located POCs unavailable
+[h264 @ 000001edc10963c0] co located POCs unavailable
+[h264 @ 000001edcadffec0] mmco: unref short failure
+[h264 @ 000001edcadfe140] co located POCs unavailable
+[h264 @ 000001edcadfc780] mmco: unref short failure
+[h264 @ 000001edc1095c80] co located POCs unavailable
+[h264 @ 000001edcadffec0] co located POCs unavailable
+[h264 @ 000001edcadffec0] co located POCs unavailable
+[h264 @ 000001edcadfe140] mmco: unref short failure
+[h264 @ 000001edcadfc780] co located POCs unavailable
+[h264 @ 000001edc1096780] mmco: unref short failure
+[h264 @ 000001edc10963c0] co located POCs unavailable
+[h264 @ 000001edcadffec0] co located POCs unavailable
+[h264 @ 000001edcadfe140] mmco: unref short failure
+[h264 @ 000001edcadfc780] co located POCs unavailable
+[h264 @ 000001edc1096780] mmco: unref short failure
+[h264 @ 000001edc10963c0] co located POCs unavailable
+[000001edc10b82b0] avcodec decoder error: more than 5 seconds of late video -> dropping frame (computer too slow ?)
+[000001edc10b82b0] avcodec decoder error: more than 5 seconds of late video -> dropping frame (computer too slow ?)
+[000001edc10b82b0] avcodec decoder error: more than 5 seconds of late video -> dropping frame (computer too slow ?)
+[000001edc10b82b0] avcodec decoder error: more than 5 seconds of late video -> dropping frame (computer too slow ?)
+[000001edc10b82b0] avcodec decoder error: more than 5 seconds of late video -> dropping frame (computer too slow ?)
+[000001edc10b82b0] avcodec decoder error: more than 5 seconds of late video -> dropping frame (computer too slow ?)
+[000001edc10b82b0] avcodec decoder error: more than 5 seconds of late video -> dropping frame (computer too slow ?)
+[000001edc10b82b0] avcodec decoder error: more than 5 seconds of late video -> dropping frame (computer too slow ?)
+[000001edc10b82b0] avcodec decoder error: more than 5 seconds of late video -> dropping frame (computer too slow ?)
+[000001edc10b82b0] avcodec decoder error: more than 5 seconds of late video -> dropping frame (computer too slow ?)
+[000001edc10b82b0] avcodec decoder error: more than 5 seconds of late video -> dropping frame (computer too slow ?)
+[h264 @ 000001edcadfe140] co located POCs unavailable
+[h264 @ 000001edcadfc780] co located POCs unavailable
+[h264 @ 000001edc1095c80] co located POCs unavailable
+[h264 @ 000001edc10963c0] mmco: unref short failure
+[h264 @ 000001edcadfc780] co located POCs unavailable
+[h264 @ 000001edc10

@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*.egg-info/
+
+# PyInstaller
+build*/
+dist*/
+*.spec.bak
+
+# 运行/调试产物
+*.log
+_launch.log
+_player.log
+_diag_*.py
+_shot*.png
+
+# 大体积二进制（VLC 内核与模型不入库，见 README）
+tools/vlcportable/
+tools/vlc_bundle.zip
+models/
+*.onnx
+
+# 测试素材与临时
+tools/*.wav
+*.srt.bak
+.nuitka/
+*.bin
+
+# IDE / 系统
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

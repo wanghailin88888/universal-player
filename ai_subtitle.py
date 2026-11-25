@@ -750,6 +750,66 @@ def generate_subtitles(media: str,
                     on_partial([], live_srt)
             except Exception:
                 pass
+            # 翻译流水线：识别与翻译并行——第 N 段在后台翻译的同时，
+            # 识别线程继续跑第 N+1 段，字幕（含译文）出现节奏更密。
+            # 翻译线程万一挂掉（如 Argos 包缺失）则降级为原文直出，不断流。
+            import threading as _threading
+            import queue as _queue
+
+            trans_q: "_queue.Queue" = _queue.Queue()
+            acc_lock = _threading.Lock()
+            last_pct = {"v": 5}
+            trans_state = {"err": None}
+
+            def _translator():
+                try:
+                    while True:
+                        item = trans_q.get()
+                        if item is None:
+                            return
+                        segs, src = item
+                        if cancel_check and cancel_check():
+                            return
+                        _translate(segs, src, None)
+                        with acc_lock:
+                            acc.extend(segs)
+                            snap = list(acc)
+                        write_srt(snap, live_srt, _mode(src))
+                        if progress_cb:
+                            cover = snap[-1].end if snap else 0.0
+                            progress_cb(last_pct["v"],
+                                        f"译文已更新到 "
+                                        f"{int(cover // 60):02d}:{int(cover % 60):02d}")
+                        if on_partial:
+                            try:
+                                on_partial(snap, live_srt)
+                            except Exception:
+                                pass
+                except Exception as e:
+                    trans_state["err"] = e
+
+            trans_thr = _threading.Thread(target=_translator, daemon=True)
+            trans_thr.start()
+
+            def _drain_untranslated():
+                """翻译线程挂掉时的兜底：队列里剩余段落原文直出。"""
+                while True:
+                    try:
+                        segs, src = trans_q.get_nowait()
+                    except _queue.Empty:
+                        break
+                    if not segs:
+                        continue
+                    with acc_lock:
+                        acc.extend(segs)
+                        snap = list(acc)
+                    write_srt(snap, live_srt, _mode(src))
+                    if on_partial:
+                        try:
+                            on_partial(snap, live_srt)
+                        except Exception:
+                            pass
+
             for i in range(n_chunks):
                 if cancel_check and cancel_check():
                     raise AsrError("已取消")
@@ -775,20 +835,28 @@ def generate_subtitles(media: str,
                     continue
                 if not src_detected:
                     src_detected = r.language or ""
-                _translate(r.segments, src_detected, pcb)
-                acc = merge_segments(acc, r.segments)
-                write_srt(acc, live_srt, _mode(src_detected))
+                # 入队后台翻译，主线程立刻识别下一段（流水线）
+                trans_q.put((r.segments, src_detected))
+                last_pct["v"] = int(base + (94.0 / n_chunks))
                 if progress_cb:
-                    cover = acc[-1].end if acc else 0.0
-                    progress_cb(int(base + (94.0 / n_chunks)),
-                                f"第 {i + 1}/{n_chunks} 段完成，字幕已更新到 "
-                                f"{int(cover // 60):02d}:{int(cover % 60):02d}")
-                if on_partial:
-                    try:
-                        on_partial(list(acc), live_srt)
-                    except Exception:
-                        pass
+                    cover = r.segments[-1].end if r.segments else off + lim
+                    progress_cb(last_pct["v"],
+                                f"第 {i + 1}/{n_chunks} 段识别完成，字幕已更新到 "
+                                f"{int(cover // 60):02d}:{int(cover % 60):02d}（译文后台翻译中）")
         finally:
+            # 收尾翻译流水线：等剩余段落翻完；线程挂掉则原文直出兜底
+            try:
+                trans_q.put(None)
+                trans_thr.join(timeout=600)
+                if trans_state["err"]:
+                    if progress_cb:
+                        progress_cb(last_pct["v"],
+                                    f"翻译失败（{trans_state['err']}），已按原文输出")
+                    _drain_untranslated()
+                with acc_lock:
+                    acc = list(acc)
+            except Exception:
+                pass
             # 取消/异常也把已识别的部分落盘，别让用户白等
             if acc:
                 try:
